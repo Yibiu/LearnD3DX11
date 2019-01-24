@@ -2,6 +2,7 @@
 #include <Windows.h>
 #include <windowsx.h>
 #include <d3d11.h>
+#include "timer.h"
 
 
 #define WINDOW_WIDTH	800

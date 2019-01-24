@@ -42,6 +42,7 @@ bool CDX11Base::init(HINSTANCE instance)
 	bool success = false;
 
 	do {
+		_inst = instance;
 		if (!_init_window())
 			break;
 		if (!_init_d3d())
@@ -130,12 +131,10 @@ bool CDX11Base::on_resize()
 
 void CDX11Base::update(float dt)
 {
-
 }
 
 void CDX11Base::draw()
 {
-
 }
 
 LRESULT CDX11Base::msg_proc(HWND hwnd, UINT msg, WPARAM wParam, LPARAM lParam)
@@ -143,8 +142,7 @@ LRESULT CDX11Base::msg_proc(HWND hwnd, UINT msg, WPARAM wParam, LPARAM lParam)
 	switch (msg)
 	{
 	case WM_ACTIVATE:
-		if (LOWORD(wParam) == WA_INACTIVE)
-		{
+		if (LOWORD(wParam) == WA_INACTIVE) {
 		}
 		return 0;
 	case WM_SIZE:
@@ -171,8 +169,7 @@ LRESULT CDX11Base::msg_proc(HWND hwnd, UINT msg, WPARAM wParam, LPARAM lParam)
 				}
 				else if (_resizing) {
 				}
-				else // API call such as SetWindowPos or mSwapChain->SetFullscreenState.
-				{
+				else {
 					on_resize();
 				}
 			}
@@ -214,31 +211,27 @@ LRESULT CDX11Base::msg_proc(HWND hwnd, UINT msg, WPARAM wParam, LPARAM lParam)
 
 void CDX11Base::on_mouse_pressed(WPARAM btnState, int x, int y)
 {
-
 }
 
 void CDX11Base::on_mouse_release(WPARAM btnState, int x, int y)
 {
-
 }
 
 void CDX11Base::on_mouse_move(WPARAM btnState, int x, int y)
 {
-
 }
 
 int CDX11Base::run()
 {
 	MSG msg = { 0 };
 
-	while (msg.message != WM_QUIT)
+	while (WM_QUIT != msg.message)
 	{
 		if (PeekMessage(&msg, 0, 0, 0, PM_REMOVE)) {
 			TranslateMessage(&msg);
 			DispatchMessage(&msg);
 		}
-		else
-		{
+		else {
 			update(0);
 			draw();
 		}
